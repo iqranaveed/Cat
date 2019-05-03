@@ -1,0 +1,50 @@
+﻿@model MobileInfo.Models.Picture
+
+<div class="order_list_container" style="background-color:rgb(242,244,248)">
+    <br />
+    <h3 style="padding-left:30%">Are you sure you want to delete this Picture?</h3>
+    <div>
+        
+        <hr />
+        <dl class="dl-horizontal" style="padding-left:28%">
+            <dt>
+                @Html.DisplayNameFor(model => model.MobileId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MobileId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Image)
+            </dt>
+
+            <dd>
+                <img src="@Url.Content(Model.Image)" height="150" width="150" />
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color" style="padding-left:45%">
+                <input type="submit" value="Delete" class="btn btn-default" style="background-color:rgb(101,62,101);color:white" /> <p>  </p>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+            <br />
+        }
+    </div>
+    </div>
+    
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+  

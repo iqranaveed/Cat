@@ -1,0 +1,133 @@
+﻿@model IEnumerable<MobileInfo.Models.Brand>
+
+<div class="order_list_container" >
+	<table class="table" style="background-color:rgb(242,244,248);border: 1px solid black;border-collapse: collapse">
+
+		<div style="font-style:initial; font-size:20px ; color:mediumblue; padding-left: 5%"> @Html.ActionLink("Go Back", "ALoggedIn")</div>
+		<div style="font-style:initial; font-size:20px ; color:mediumblue; padding-left: 5% "> @Html.ActionLink("Add new Brand", "RegisterBrand")</div>
+        <br />
+        
+
+		<tr style="font-size:20px;color:black">
+			<th>
+				<br />
+			</th>
+			<th>
+				<br />
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Country)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Image)
+			</th>
+			<th>
+				<br />
+			</th>
+			<th>
+				<br />
+			</th>
+			<th>
+				<br />
+			</th>
+			<th>
+				<br />
+			</th>
+			<th>
+				<br />
+			</th>
+			<th>
+				<br />
+			</th>
+			<th>
+				<br />
+			</th>
+			<th>
+				<br />
+			</th>
+			<th>
+				<br />
+			</th>
+			<th>
+				<br />
+			</th>
+			<th></th>
+		</tr>
+
+		@foreach (var item in Model)
+		{
+		<tr style="font-size:20px;color:black">
+			<td>
+				<br />
+			</td>
+			<td>
+				<br />
+
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Country)
+			</td>
+			<td>
+				<img src="@Url.Content(item.Image)" height="200" width="150" />
+			</td>
+			<td>
+				<br />
+			</td>
+			<td>
+				<br />
+
+			</td>
+			<td>
+				<br />
+			</td>
+			<td>
+				<br />
+
+			</td>
+			<td>
+				<br />
+			</td>
+			<td>
+				<br />
+
+			</td>
+			<td>
+				<br />
+			</td>
+			<td>
+				<br />
+
+			</td>
+			<td>
+				<br />
+			</td>
+			<td>
+				<br />
+			</td>
+			<td style="font-size:20px; text-align:center ; color:white">
+                
+                
+                    <div class="button" style="background-color:rgb(135,191,23);border-radius: 8px; text-align:center ; width:80px; height:65px">
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    </div>
+                    <div class="button" style="background-color:mediumpurple;border-radius: 8px; text-align:center ; width:80px; height:65px">
+                        @Html.ActionLink("Delete", "BDelete", new { id = item.Id })
+
+                    </div>
+           
+               
+			</td>
+		</tr>
+		}
+	</table>
+</div>
+<br />
+<br />
+<br />
+

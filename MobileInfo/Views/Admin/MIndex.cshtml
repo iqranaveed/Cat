@@ -1,0 +1,99 @@
+﻿@model IEnumerable<MobileInfo.Models.Mobile>
+
+<div class="order_list_container">
+    <table class="table" style="background-color:rgb(242,244,248);  border: 1px solid black;border-collapse: collapse">
+
+        <div style="font-style:initial; font-size:20px ; color:medumblue; padding-left: 5%"> @Html.ActionLink("Go Back", "ALoggedIn")</div>
+        <div style="font-style:initial; font-size:20px ; color:mediumblue; padding-left: 5% "> @Html.ActionLink("Add new Mobile", "RegisterMobile")</div>
+        <br />
+        <tr style="font-size:20px;color:black">
+            <th>
+                <br />
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SIM)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Colors)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Main_Camera)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Announced_On)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Picture)
+            </th>
+            <th>
+                <br />
+            </th>
+            <th>
+                <br />
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr style="font-size:20px;color:black">
+                <td>
+                    <br />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SIM)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Colors)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Main_Camera)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Announced_On)
+                </td>
+                <td>
+                    <img src="@Url.Content(item.Picture)" height="200" width="150" />
+                </td>
+                <td>
+                    <br />
+                </td>
+                <td>
+                    <br />
+
+                </td>
+                <td cstyle="font-size:20px; text-align:center ; color:black">
+                    <div class="button checkout_button" style="background-color:rgb(135,191,23);border-radius: 8px; text-align:center ; width:80px; height:65px">
+                        @Html.ActionLink("Edit", "MEdit", new { id = item.Id })
+                    </div>
+                    <div class="button checkout_button" style="background-color: lightgray; border-radius: 8px; text-align:center ; width:80px; height:65px">
+                        @Html.ActionLink("Details", "MDetails", new { id = item.Id })
+
+                    </div>
+                    <div class="button checkout_button" style="background-color: mediumpurple; border-radius: 8px; text-align:center ; width:80px; height:65px">
+                        @Html.ActionLink("Delete", "MDelete", new { id = item.Id })
+
+                    </div>
+                </td>
+            </tr>
+        }
+
+    </table>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />

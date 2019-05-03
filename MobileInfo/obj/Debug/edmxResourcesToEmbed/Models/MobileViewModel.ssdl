@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB16Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Administrator">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Brands">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Image" Type="nvarchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Mobile">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="OS" Type="nvarchar" MaxLength="200" />
+    <Property Name="UI" Type="nvarchar" MaxLength="200" />
+    <Property Name="Dimensions" Type="nvarchar" MaxLength="200" />
+    <Property Name="Weight" Type="nvarchar" MaxLength="200" />
+    <Property Name="SIM" Type="nvarchar" MaxLength="300" />
+    <Property Name="Colors" Type="nvarchar" MaxLength="1000" />
+    <Property Name="2G Band" Type="nvarchar(max)" />
+    <Property Name="3G Band" Type="nvarchar(max)" />
+    <Property Name="4G Band" Type="nvarchar(max)" />
+    <Property Name="CPU" Type="nvarchar(max)" />
+    <Property Name="Chipset" Type="nvarchar(max)" />
+    <Property Name="GPU" Type="nvarchar(max)" />
+    <Property Name="Technology" Type="nvarchar(max)" />
+    <Property Name="Size" Type="nvarchar" MaxLength="50" />
+    <Property Name="Resolution" Type="nvarchar" MaxLength="200" />
+    <Property Name="Built-in Memory" Type="nvarchar" MaxLength="100" />
+    <Property Name="Card" Type="nvarchar" MaxLength="200" />
+    <Property Name="Main Camera" Type="nvarchar" MaxLength="50" />
+    <Property Name="Camera Description" Type="nvarchar(max)" />
+    <Property Name="Features" Type="nvarchar(max)" />
+    <Property Name="Front Camera" Type="nvarchar(max)" />
+    <Property Name="WLAN" Type="nvarchar(max)" />
+    <Property Name="Bluetooth" Type="nvarchar" MaxLength="200" />
+    <Property Name="GPS" Type="nvarchar" MaxLength="200" />
+    <Property Name="USB" Type="nvarchar" MaxLength="200" />
+    <Property Name="NFC" Type="nvarchar" MaxLength="50" />
+    <Property Name="Data" Type="nvarchar(max)" />
+    <Property Name="Sensors" Type="nvarchar(max)" />
+    <Property Name="Audio" Type="nvarchar" MaxLength="500" />
+    <Property Name="Browser" Type="nvarchar" MaxLength="100" />
+    <Property Name="Messaging" Type="nvarchar" MaxLength="200" />
+    <Property Name="Games" Type="nvarchar" MaxLength="200" />
+    <Property Name="Torch" Type="nvarchar" MaxLength="10" />
+    <Property Name="Extra" Type="nvarchar(max)" />
+    <Property Name="Battery" Type="nvarchar(max)" />
+    <Property Name="Price" Type="bigint" Nullable="false" />
+    <Property Name="Announced On" Type="date" />
+    <Property Name="Status" Type="nvarchar" MaxLength="20" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="BrandId" Type="int" Nullable="false" />
+    <Property Name="Picture" Type="nvarchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pictures">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MobileId" Type="int" Nullable="false" />
+    <Property Name="Image" Type="nvarchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reviews">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Stars" Type="int" Nullable="false" />
+    <Property Name="Opinion" Type="nvarchar(max)" />
+    <Property Name="MobileId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Mobile_Brands">
+    <End Role="Brands" Type="Self.Brands" Multiplicity="1" />
+    <End Role="Mobile" Type="Self.Mobile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brands">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Mobile">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pictures_Mobile">
+    <End Role="Mobile" Type="Self.Mobile" Multiplicity="1" />
+    <End Role="Pictures" Type="Self.Pictures" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mobile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Pictures">
+        <PropertyRef Name="MobileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reviews_Mobile">
+    <End Role="Mobile" Type="Self.Mobile" Multiplicity="1" />
+    <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mobile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reviews">
+        <PropertyRef Name="MobileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB16ModelStoreContainer">
+    <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Brands" EntityType="Self.Brands" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mobile" EntityType="Self.Mobile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pictures" EntityType="Self.Pictures" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Mobile_Brands" Association="Self.FK_Mobile_Brands">
+      <End Role="Brands" EntitySet="Brands" />
+      <End Role="Mobile" EntitySet="Mobile" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pictures_Mobile" Association="Self.FK_Pictures_Mobile">
+      <End Role="Mobile" EntitySet="Mobile" />
+      <End Role="Pictures" EntitySet="Pictures" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reviews_Mobile" Association="Self.FK_Reviews_Mobile">
+      <End Role="Mobile" EntitySet="Mobile" />
+      <End Role="Reviews" EntitySet="Reviews" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

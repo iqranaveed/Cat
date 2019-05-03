@@ -1,0 +1,35 @@
+﻿@model IEnumerable<MobileInfo.Models.Mobile>
+
+@{
+    ViewBag.Title = "BrandMobiles";
+}
+
+
+<div class="container">
+
+    @foreach (var item in Model)
+    {
+        if (item.BrandId == @ViewBag.linkableId)
+        {
+            <div class="col-md-2" style="margin-bottom:25px; margin-right:87px">
+                <div class="thumbnail">
+                    <div class="Images">
+                        <img src="@Url.Content(item.Picture)" height="150" width="150" />
+                    </div>
+                    <div class="caption" style=" border-top: 3px solid">
+                        <h4> @item.Name</h4>
+                        <h5> @item.Price</h5>
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+</div>
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

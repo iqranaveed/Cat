@@ -1,0 +1,56 @@
+﻿@model MobileInfo.Models.Administrator
+
+@{
+    ViewBag.Title = "AdminLogin";
+}
+
+
+<table class="table">
+
+    <h2 class="form-group" style="margin-left: auto; margin-right: auto; width: 1150px;height:40px; background-color:purple; color: white;text-align:center">Admin Login </h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="image-container" style="background-image:url(/images/product_8.jpg); height:250px">
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                <div class="form-group" style="color: black;  font-size: 22px ;margin-left: auto; margin-right: auto; width: 7em">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2", style = "font-size:20px;color:black" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", style = "width: 260px ; height:30px" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="color: black;  font-size: 22px ;margin-left: auto; margin-right: auto; width: 7em">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2", style = "font-size:20px;color:black" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", style = "width: 260px ; height:30px" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="color: cadetblue;  border-collapse:collapse; margin-bottom:100px;  text-align: center; font-size: 60px">
+                    <div class="col-md-offset-2 col-md-10" style="color: purple;  border-collapse:collapse;text-align:center">
+                        <input style="font-size:20px ;background-color:purple; color: white ;width: 100px ; height:39px; border-collapse:collapse ;color:white;align-content:center" type="submit" value="Login" class="btn btn-default" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+
+    @Html.Raw(TempData["msg"])
+
+</table>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

@@ -1,0 +1,455 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB16Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Brands">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Mobile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="OS" Type="nvarchar" MaxLength="200" />
+          <Property Name="UI" Type="nvarchar" MaxLength="200" />
+          <Property Name="Dimensions" Type="nvarchar" MaxLength="200" />
+          <Property Name="Weight" Type="nvarchar" MaxLength="200" />
+          <Property Name="SIM" Type="nvarchar" MaxLength="300" />
+          <Property Name="Colors" Type="nvarchar" MaxLength="1000" />
+          <Property Name="2G Band" Type="nvarchar(max)" />
+          <Property Name="3G Band" Type="nvarchar(max)" />
+          <Property Name="4G Band" Type="nvarchar(max)" />
+          <Property Name="CPU" Type="nvarchar(max)" />
+          <Property Name="Chipset" Type="nvarchar(max)" />
+          <Property Name="GPU" Type="nvarchar(max)" />
+          <Property Name="Technology" Type="nvarchar(max)" />
+          <Property Name="Size" Type="nvarchar" MaxLength="50" />
+          <Property Name="Resolution" Type="nvarchar" MaxLength="200" />
+          <Property Name="Built-in Memory" Type="nvarchar" MaxLength="100" />
+          <Property Name="Card" Type="nvarchar" MaxLength="200" />
+          <Property Name="Main Camera" Type="nvarchar" MaxLength="50" />
+          <Property Name="Camera Description" Type="nvarchar(max)" />
+          <Property Name="Features" Type="nvarchar(max)" />
+          <Property Name="Front Camera" Type="nvarchar(max)" />
+          <Property Name="WLAN" Type="nvarchar(max)" />
+          <Property Name="Bluetooth" Type="nvarchar" MaxLength="200" />
+          <Property Name="GPS" Type="nvarchar" MaxLength="200" />
+          <Property Name="USB" Type="nvarchar" MaxLength="200" />
+          <Property Name="NFC" Type="nvarchar" MaxLength="50" />
+          <Property Name="Data" Type="nvarchar(max)" />
+          <Property Name="Sensors" Type="nvarchar(max)" />
+          <Property Name="Audio" Type="nvarchar" MaxLength="500" />
+          <Property Name="Browser" Type="nvarchar" MaxLength="100" />
+          <Property Name="Messaging" Type="nvarchar" MaxLength="200" />
+          <Property Name="Games" Type="nvarchar" MaxLength="200" />
+          <Property Name="Torch" Type="nvarchar" MaxLength="10" />
+          <Property Name="Extra" Type="nvarchar(max)" />
+          <Property Name="Battery" Type="nvarchar(max)" />
+          <Property Name="Price" Type="bigint" Nullable="false" />
+          <Property Name="Announced On" Type="date" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="BrandId" Type="int" Nullable="false" />
+          <Property Name="Picture" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pictures">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MobileId" Type="int" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Stars" Type="int" Nullable="false" />
+          <Property Name="Opinion" Type="nvarchar(max)" />
+          <Property Name="MobileId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Mobile_Brands">
+          <End Role="Brands" Type="Self.Brands" Multiplicity="1" />
+          <End Role="Mobile" Type="Self.Mobile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brands">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mobile">
+              <PropertyRef Name="BrandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pictures_Mobile">
+          <End Role="Mobile" Type="Self.Mobile" Multiplicity="1" />
+          <End Role="Pictures" Type="Self.Pictures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mobile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pictures">
+              <PropertyRef Name="MobileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Mobile">
+          <End Role="Mobile" Type="Self.Mobile" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mobile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="MobileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB16ModelStoreContainer">
+          <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Brands" EntityType="Self.Brands" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mobile" EntityType="Self.Mobile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pictures" EntityType="Self.Pictures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Mobile_Brands" Association="Self.FK_Mobile_Brands">
+            <End Role="Brands" EntitySet="Brands" />
+            <End Role="Mobile" EntitySet="Mobile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pictures_Mobile" Association="Self.FK_Pictures_Mobile">
+            <End Role="Mobile" EntitySet="Mobile" />
+            <End Role="Pictures" EntitySet="Pictures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Mobile" Association="Self.FK_Reviews_Mobile">
+            <End Role="Mobile" EntitySet="Mobile" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB16Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Mobiles" Relationship="Self.FK_Mobile_Brands" FromRole="Brands" ToRole="Mobile" />
+          <Property Name="Image" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Mobile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OS" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UI" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Dimensions" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Weight" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SIM" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Colors" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="C2G_Band" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="C3G_Band" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="C4G_Band" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CPU" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Chipset" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GPU" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Technology" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Size" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Resolution" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Built_in_Memory" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Card" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Main_Camera" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Camera_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Features" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Front_Camera" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WLAN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Bluetooth" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="GPS" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="USB" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NFC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Data" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Sensors" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Audio" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Browser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Messaging" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Games" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Torch" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Extra" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Battery" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Int64" Nullable="false" />
+          <Property Name="Announced_On" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BrandId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Brand" Relationship="Self.FK_Mobile_Brands" FromRole="Mobile" ToRole="Brands" />
+          <NavigationProperty Name="Pictures" Relationship="Self.FK_Pictures_Mobile" FromRole="Mobile" ToRole="Pictures" />
+          <NavigationProperty Name="Reviews" Relationship="Self.FK_Reviews_Mobile" FromRole="Mobile" ToRole="Reviews" />
+          <Property Name="Picture" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="MobileId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Mobile" Relationship="Self.FK_Pictures_Mobile" FromRole="Pictures" ToRole="Mobile" />
+          <Property Name="Image" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Stars" Type="Int32" Nullable="false" />
+          <Property Name="Opinion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MobileId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Mobile" Relationship="Self.FK_Reviews_Mobile" FromRole="Reviews" ToRole="Mobile" />
+        </EntityType>
+        <Association Name="FK_Mobile_Brands">
+          <End Role="Brands" Type="Self.Brand" Multiplicity="1" />
+          <End Role="Mobile" Type="Self.Mobile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brands">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Mobile">
+              <PropertyRef Name="BrandId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pictures_Mobile">
+          <End Role="Mobile" Type="Self.Mobile" Multiplicity="1" />
+          <End Role="Pictures" Type="Self.Picture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mobile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pictures">
+              <PropertyRef Name="MobileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reviews_Mobile">
+          <End Role="Mobile" Type="Self.Mobile" Multiplicity="1" />
+          <End Role="Reviews" Type="Self.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mobile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="MobileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB16Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administrators" EntityType="Self.Administrator" />
+          <EntitySet Name="Brands" EntityType="Self.Brand" />
+          <EntitySet Name="Mobiles" EntityType="Self.Mobile" />
+          <EntitySet Name="Pictures" EntityType="Self.Picture" />
+          <EntitySet Name="Reviews" EntityType="Self.Review" />
+          <AssociationSet Name="FK_Mobile_Brands" Association="Self.FK_Mobile_Brands">
+            <End Role="Brands" EntitySet="Brands" />
+            <End Role="Mobile" EntitySet="Mobiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pictures_Mobile" Association="Self.FK_Pictures_Mobile">
+            <End Role="Mobile" EntitySet="Mobiles" />
+            <End Role="Pictures" EntitySet="Pictures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reviews_Mobile" Association="Self.FK_Reviews_Mobile">
+            <End Role="Mobile" EntitySet="Mobiles" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DB16Model.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DB16Model.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB16ModelStoreContainer" CdmEntityContainer="DB16Entities">
+          <EntitySetMapping Name="Administrators">
+            <EntityTypeMapping TypeName="DB16Model.Administrator">
+              <MappingFragment StoreEntitySet="Administrator">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Brands">
+            <EntityTypeMapping TypeName="DB16Model.Brand">
+              <MappingFragment StoreEntitySet="Brands">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mobiles">
+            <EntityTypeMapping TypeName="DB16Model.Mobile">
+              <MappingFragment StoreEntitySet="Mobile">
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="OS" ColumnName="OS" />
+                <ScalarProperty Name="UI" ColumnName="UI" />
+                <ScalarProperty Name="Dimensions" ColumnName="Dimensions" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="SIM" ColumnName="SIM" />
+                <ScalarProperty Name="Colors" ColumnName="Colors" />
+                <ScalarProperty Name="C2G_Band" ColumnName="2G Band" />
+                <ScalarProperty Name="C3G_Band" ColumnName="3G Band" />
+                <ScalarProperty Name="C4G_Band" ColumnName="4G Band" />
+                <ScalarProperty Name="CPU" ColumnName="CPU" />
+                <ScalarProperty Name="Chipset" ColumnName="Chipset" />
+                <ScalarProperty Name="GPU" ColumnName="GPU" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Resolution" ColumnName="Resolution" />
+                <ScalarProperty Name="Built_in_Memory" ColumnName="Built-in Memory" />
+                <ScalarProperty Name="Card" ColumnName="Card" />
+                <ScalarProperty Name="Main_Camera" ColumnName="Main Camera" />
+                <ScalarProperty Name="Camera_Description" ColumnName="Camera Description" />
+                <ScalarProperty Name="Features" ColumnName="Features" />
+                <ScalarProperty Name="Front_Camera" ColumnName="Front Camera" />
+                <ScalarProperty Name="WLAN" ColumnName="WLAN" />
+                <ScalarProperty Name="Bluetooth" ColumnName="Bluetooth" />
+                <ScalarProperty Name="GPS" ColumnName="GPS" />
+                <ScalarProperty Name="USB" ColumnName="USB" />
+                <ScalarProperty Name="NFC" ColumnName="NFC" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="Sensors" ColumnName="Sensors" />
+                <ScalarProperty Name="Audio" ColumnName="Audio" />
+                <ScalarProperty Name="Browser" ColumnName="Browser" />
+                <ScalarProperty Name="Messaging" ColumnName="Messaging" />
+                <ScalarProperty Name="Games" ColumnName="Games" />
+                <ScalarProperty Name="Torch" ColumnName="Torch" />
+                <ScalarProperty Name="Extra" ColumnName="Extra" />
+                <ScalarProperty Name="Battery" ColumnName="Battery" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Announced_On" ColumnName="Announced On" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pictures">
+            <EntityTypeMapping TypeName="DB16Model.Picture">
+              <MappingFragment StoreEntitySet="Pictures">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MobileId" ColumnName="MobileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="DB16Model.Review">
+              <MappingFragment StoreEntitySet="Reviews">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Stars" ColumnName="Stars" />
+                <ScalarProperty Name="Opinion" ColumnName="Opinion" />
+                <ScalarProperty Name="MobileId" ColumnName="MobileId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
